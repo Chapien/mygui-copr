@@ -15,10 +15,13 @@ Source3:        MyGUI-Tools
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel, desktop-file-utils
 BuildRequires:  ois-devel, glew, glew-devel, libGLEW, doxygen, graphviz, cmake, dos2unix
-BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build
+BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build, sdl2-compat-devel
+BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
 Requires:       mesa-libGL
+Requires:       sdl2-compat
+Requires:       SDL2_image
 
 %description
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications.
