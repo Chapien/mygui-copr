@@ -15,7 +15,7 @@ Source3:        MyGUI-Tools
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel, desktop-file-utils
 BuildRequires:  ois-devel, glew, glew-devel, libGLEW, doxygen, graphviz, cmake, dos2unix
-BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel
+BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build
 
 Requires:       dejavu-sans-fonts
 Requires:       mesa-libGL
