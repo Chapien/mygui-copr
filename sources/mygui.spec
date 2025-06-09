@@ -16,11 +16,20 @@ BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel, desktop-file-utils
 BuildRequires:  ois-devel, glew, glew-devel, libGLEW, doxygen, graphviz, cmake, dos2unix
 BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build
+%if 0%{?fedora} > 41
+BuildRequires:  sdl2-compat-devel
+%else
+BuildRequires:  SDL2-devel
+%endif
 BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
 Requires:       mesa-libGL
+%if 0%{?fedora} > 41
 Requires:       sdl2-compat
+%else
+Requires:       SDL2
+%endif
 Requires:       SDL2_image
 
 %description
