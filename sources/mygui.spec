@@ -40,7 +40,7 @@ MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) 
 
 %package        devel
 Summary:        Development files for MyGUI
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig, ois-devel, mesa-libGL-devel
 
 %description    devel
@@ -58,7 +58,7 @@ developing applications that use %{name}.
 
 %package tools
 Summary:        MyGUI tools 
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description tools
 This package contains the MyGUI tools, installed in %{_bindir}. 
