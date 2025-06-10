@@ -16,11 +16,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel, desktop-file-utils
 BuildRequires:  ois-devel, glew, glew-devel, libGLEW, doxygen, graphviz, cmake, dos2unix
 BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build
-%if 0%{?fedora} > 41
-BuildRequires:  sdl2-compat-devel
-%else
-BuildRequires:  SDL2-devel
-%endif
+BuildRequires:  cmake(SDL2)
 BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
@@ -68,9 +64,9 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
 
 
 %build
-%cmake -S . -G Ninja \
-   -DMYGUI_INSTALL_PDB=FALSE -DCMAKE_BUILD_TYPE=Release -DMYGUI_BUILD_DEMOS=FALSE -DMYGUI_BUILD_PLUGINS=OFF \
-        -DCMAKE_SKIP_RPATH=ON -DMYGUI_DONT_USE_OBSOLETE=ON -DMYGUI_BUILD_TOOLS=TRUE -DMYGUI_USE_SYSTEM_GLEW=TRUE \
+%cmake -G Ninja \
+   -DMYGUI_INSTALL_PDB=FALSE -DMYGUI_BUILD_DEMOS=FALSE -DMYGUI_BUILD_PLUGINS=OFF \
+        -DCMAKE_INSTALL_RPATH=FALSE -DMYGUI_DONT_USE_OBSOLETE=ON -DMYGUI_BUILD_TOOLS=TRUE -DMYGUI_USE_SYSTEM_GLEW=TRUE \
         -DMYGUI_RENDERSYSTEM=4 -DMYGUI_INSTALL_TOOLS=TRUE -DMYGUI_BUILD_DOCS=TRUE -DMYGUI_INSTALL_DOCS=TRUE \
         -DMYGUI_INSTALL_DEMOS=FALSE
 %cmake_build
