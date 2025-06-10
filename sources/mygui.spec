@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
 URL:            http://mygui.info/
-Source0:        https://github.com/MyGUI/mygui/archive/MyGUI3.4.3/mygui-MyGUI%{version}.tar.gz
+Source0:        https://github.com/MyGUI/mygui/archive/MyGUI%{version}/mygui-MyGUI%{version}.tar.gz
 # Demo and tools resources configuration
 Source1:        resources.xml
 # LayoutEditor  desktop entry
@@ -32,12 +32,8 @@ BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
 Requires:       mesa-libGL
-%if 0%{?fedora} > 41
 Requires:       sdl2-compat
-%else
-Requires:       SDL2
-%endif
-Requires:       SDL2_image
+
 
 %description
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications.
@@ -81,17 +77,16 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
         -DMYGUI_RENDERSYSTEM=4 -DMYGUI_INSTALL_TOOLS=TRUE -DMYGUI_BUILD_DOCS=TRUE -DMYGUI_INSTALL_DOCS=TRUE \
         -DMYGUI_INSTALL_DEMOS=FALSE
 %cmake_build
-cd redhat-linux-build
+cd %{_vpath_builddir}
 pushd Docs
 doxygen
 popd
 
 %install
-rm -rf %{buildroot}
 %cmake_install
 install -d %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
 install -d %{buildroot}%{_datadir}/MYGUI/Tools
-install -D %{_buildrootdir}/mygui-MyGUI%{version}/redhat-linux-build/Docs/html/* %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
+install -D %{_vpath_builddir}/Docs/html/* %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
 
 # Install desktop entry for LayoutEditor
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
