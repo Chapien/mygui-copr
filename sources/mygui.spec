@@ -13,9 +13,20 @@ Source2:        mygui-layouteditor.desktop
 Source3:        MyGUI-Tools
 
 BuildRequires:  gcc-c++
-BuildRequires:  freetype-devel, desktop-file-utils
-BuildRequires:  ois-devel, glew, glew-devel, libGLEW, doxygen, graphviz, cmake, dos2unix
-BuildRequires:  libuuid-devel, libX11-devel, mesa-libGL-devel, ninja-build
+BuildRequires:  freetype-devel 
+BuildRequires:  desktop-file-utils
+BuildRequires:  ois-devel
+BuildRequires:  glew
+BuildRequires:  glew-devel
+BuildRequires:  libGLEW
+BuildRequires:  doxygen
+BuildRequires:  graphviz
+BuildRequires:  cmake
+BuildRequires:  dos2unix
+BuildRequires:  libuuid-devel
+BuildRequires:  libX11-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  ninja-build
 BuildRequires:  cmake(SDL2)
 BuildRequires:  SDL2_image-devel
 
