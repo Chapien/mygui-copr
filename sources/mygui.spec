@@ -1,6 +1,6 @@
 Name:           mygui
 Version:        3.4.3
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
 URL:            http://mygui.info/
@@ -153,6 +153,7 @@ ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans-ExtraLight.ttf \
 
 
 %changelog
+%autochangelog
 * Mon Jun 09 2025 Claire Robsahm <inquiries@chapien.net> - 3.4.3-1
 - Updated to 3.4.3. Build using OpenGL instead of OGRE.
 
