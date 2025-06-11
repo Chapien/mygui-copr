@@ -9,6 +9,3 @@ Exec=MyGUI-Tools LayoutEditor
 Categories=Development;
 StartupNotify=true
 StartupWMClass=LayoutEditor
-X-Desktop-File-Install-Version=0.28
-X-KDE-SubstituteUID=false
-X-KDE-Username=
