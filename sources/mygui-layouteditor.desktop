@@ -1,9 +1,14 @@
+# Created with jdDesktopEntryEdit 1.6
 [Desktop Entry]
+Type=Application
 Name=MyGUI Layout Editor
 GenericName=MyGUI Layout Editor
 Comment=Design UIs usgin MyGUI library
-Exec=MyGUI-Tools LayoutEditor
 Icon=preferences-system-windows
-Terminal=false
-Type=Application
+Exec=MyGUI-Tools LayoutEditor
 Categories=Development;
+StartupNotify=true
+StartupWMClass=LayoutEditor
+X-Desktop-File-Install-Version=0.28
+X-KDE-SubstituteUID=false
+X-KDE-Username=
