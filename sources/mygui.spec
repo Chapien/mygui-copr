@@ -11,6 +11,8 @@ Source1:        resources.xml
 Source2:        mygui-layouteditor.desktop
 # Script to run MyGui tools
 Source3:        MyGUI-Tools
+# Icon png taken from MyGUI's website for Tools desktop files
+Source4:        mygui.png
 
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel 
@@ -91,6 +93,9 @@ install -D %{_vpath_builddir}/Docs/html/* %{buildroot}%{_datadir}/doc/mygui-deve
 # Install desktop entry for LayoutEditor
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
+# Put the mygui.png icon in MyGUI's datadir.
+install %{SOURCE4} %{buildroot}%{_datadir}/MYGUI/mygui.png
+
 # Replace resources.xml with our version of it
 rm -f %{buildroot}%{_bindir}/resources.xml
 install %{SOURCE1} %{buildroot}%{_datadir}/MYGUI/Tools/resources.xml
@@ -122,6 +127,7 @@ ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans-ExtraLight.ttf \
 %{_libdir}/*.so.*
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
+%{_datadir}/MYGUI/mygui.png
 %{_datadir}/MYGUI/Media/Common
 %{_datadir}/MYGUI/Media/MyGUI_Media
 %{_datadir}/MYGUI/Media/Wrapper
