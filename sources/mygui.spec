@@ -7,12 +7,13 @@ URL:            http://mygui.info/
 Source0:        https://github.com/MyGUI/mygui/archive/MyGUI%{version}/mygui-MyGUI%{version}.tar.gz
 # Demo and tools resources configuration
 Source1:        resources.xml
-# LayoutEditor  desktop entry
-Source2:        mygui-layouteditor.desktop
 # Script to run MyGui tools
-Source3:        MyGUI-Tools
-# Icon png taken from MyGUI's website for Tools desktop files
-Source4:        mygui.png
+Source2:        MyGUI-Tools
+# Desktop files
+Source3:        mygui-layouteditor.desktop
+Source4:        mygui-imageeditor.desktop
+Source5:        mygui-fonteditor.desktop
+Source6:        mygui-skineditor.desktop
 
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel 
@@ -91,10 +92,10 @@ install -d %{buildroot}%{_datadir}/MYGUI/Tools
 install -D %{_vpath_builddir}/Docs/html/* %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
 
 # Install desktop entry for LayoutEditor
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
-
-# Put the mygui.png icon in MyGUI's datadir.
-install %{SOURCE4} %{buildroot}%{_datadir}/MYGUI/mygui.png
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE3}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE5}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE6}
 
 # Replace resources.xml with our version of it
 rm -f %{buildroot}%{_bindir}/resources.xml
@@ -107,7 +108,7 @@ mv %{buildroot}%{_bindir}/LayoutEditor %{buildroot}%{_datadir}/MYGUI/Tools/Layou
 mv %{buildroot}%{_bindir}/SkinEditor %{buildroot}%{_datadir}/MYGUI/Tools/SkinEditor
 
 # Install our handy tools script
-install -m 0755 %{SOURCE3} %{buildroot}%{_bindir}/MyGUI-Tools
+install -m 0755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
 
 # Strip away unittests media 
 rm -rf %{buildroot}%{_datadir}/MYGUI/Media/UnitTests
@@ -121,13 +122,27 @@ ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans.ttf \
 ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans-ExtraLight.ttf \
   %{buildroot}%{_datadir}/MYGUI/Media/MyGUI_Media/DejaVuSans-ExtraLight.ttf
 
+# Move icons to appropriate directory
+for size in 16 24 32 48 96 256 ; do
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_FE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_fe.png
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_IE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_ie.png
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_SE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_se.png
+done
+
+# Layout Editor is missing 32x32 icons, so we're doing them seperately. 
+for size in 16 24 48 96 256 ; do
+    install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_LE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_le.png
+done
+
+%check
+%ctest
+
 %files
 %license COPYING.MIT
 %doc README.md
 %{_libdir}/*.so.*
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
-%{_datadir}/MYGUI/mygui.png
 %{_datadir}/MYGUI/Media/Common
 %{_datadir}/MYGUI/Media/MyGUI_Media
 %{_datadir}/MYGUI/Media/Wrapper
@@ -150,7 +165,11 @@ ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans-ExtraLight.ttf \
 %{_datadir}/MYGUI/Tools/SkinEditor
 %{_datadir}/MYGUI/Media/Tools
 %{_datadir}/MYGUI/Media/Demos
+%{_iconsdir}/hicolor
 %{_datadir}/applications/mygui-layouteditor.desktop
+%{_datadir}/applications/mygui-skineditor.desktop
+%{_datadir}/applications/mygui-fonteditor.desktop
+%{_datadir}/applications/mygui-imageeditor.desktop
 
 
 %changelog
