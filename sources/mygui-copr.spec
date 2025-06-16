@@ -1,6 +1,6 @@
 Name:           mygui
 Version:        3.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
 URL:            http://mygui.info/
