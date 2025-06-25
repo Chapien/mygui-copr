@@ -115,7 +115,7 @@ mv %{buildroot}%{_bindir}/LayoutEditor %{buildroot}%{_datadir}/MYGUI/Tools/Layou
 mv %{buildroot}%{_bindir}/SkinEditor %{buildroot}%{_datadir}/MYGUI/Tools/SkinEditor
 
 # Install our handy tools script
-install -mp 0755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
+install -Dpm755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
 
 # Strip away unittests media 
 rm -rf %{buildroot}%{_datadir}/MYGUI/Media/UnitTests
