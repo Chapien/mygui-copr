@@ -1,6 +1,6 @@
 Name:           mygui
 Version:        3.4.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
 URL:            http://mygui.info/
@@ -15,27 +15,25 @@ Source4:        mygui-imageeditor.desktop
 Source5:        mygui-fonteditor.desktop
 Source6:        mygui-skineditor.desktop
 
-BuildRequires:  gcc-c++
-BuildRequires:  freetype-devel 
+BuildRequires:  cmake
+BuildRequires:  cmake(SDL2)
 BuildRequires:  desktop-file-utils
-BuildRequires:  ois-devel
+BuildRequires:  dos2unix
+BuildRequires:  doxygen
+BuildRequires:  freetype-devel 
+BuildRequires:  gcc-c++
 BuildRequires:  glew
 BuildRequires:  glew-devel
-BuildRequires:  libGLEW
-BuildRequires:  doxygen
 BuildRequires:  graphviz
-BuildRequires:  cmake
-BuildRequires:  dos2unix
+BuildRequires:  libGLEW
 BuildRequires:  libuuid-devel
 BuildRequires:  libX11-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  ninja-build
-BuildRequires:  cmake(SDL2)
+BuildRequires:  ois-devel
 BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
-Requires:       mesa-libGL
-Requires:       sdl2-compat
 
 
 %description
@@ -44,7 +42,9 @@ MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) 
 %package        devel
 Summary:        Development files for MyGUI
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       pkgconfig, ois-devel, mesa-libGL-devel
+Requires:       mesa-libGL-devel
+Requires:       ois-devel
+Requires:       pkgconfig
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -75,10 +75,17 @@ renamed to be prefixed with mygui (ie mygui-LayoutEditor)
 
 %build
 %cmake -G Ninja \
-   -DMYGUI_INSTALL_PDB=FALSE -DMYGUI_BUILD_DEMOS=FALSE -DMYGUI_BUILD_PLUGINS=OFF \
-        -DMYGUI_DONT_USE_OBSOLETE=ON -DMYGUI_BUILD_TOOLS=TRUE -DMYGUI_USE_SYSTEM_GLEW=TRUE \
-        -DMYGUI_RENDERSYSTEM=4 -DMYGUI_INSTALL_TOOLS=TRUE -DMYGUI_BUILD_DOCS=TRUE -DMYGUI_INSTALL_DOCS=TRUE \
-        -DMYGUI_INSTALL_DEMOS=FALSE
+   -DMYGUI_BUILD_DEMOS=FALSE \
+   -DMYGUI_BUILD_DOCS=TRUE \
+   -DMYGUI_BUILD_PLUGINS=OFF \
+   -DMYGUI_BUILD_TOOLS=TRUE \
+   -DMYGUI_DONT_USE_OBSOLETE=ON \
+   -DMYGUI_INSTALL_DEMOS=FALSE \
+   -DMYGUI_INSTALL_DOCS=TRUE \
+   -DMYGUI_INSTALL_PDB=FALSE  \ 
+   -DMYGUI_INSTALL_TOOLS=TRUE \
+   -DMYGUI_RENDERSYSTEM=4 \
+   -DMYGUI_USE_SYSTEM_GLEW=TRUE
 %cmake_build
 cd %{_vpath_builddir}
 pushd Docs
@@ -108,7 +115,7 @@ mv %{buildroot}%{_bindir}/LayoutEditor %{buildroot}%{_datadir}/MYGUI/Tools/Layou
 mv %{buildroot}%{_bindir}/SkinEditor %{buildroot}%{_datadir}/MYGUI/Tools/SkinEditor
 
 # Install our handy tools script
-install -m 0755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
+install -mp 0755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
 
 # Strip away unittests media 
 rm -rf %{buildroot}%{_datadir}/MYGUI/Media/UnitTests
@@ -140,7 +147,8 @@ done
 %files
 %license COPYING.MIT
 %doc README.md
-%{_libdir}/*.so.*
+%{_libdir}/libMyGUICommon.so.*
+%{_libdir}/libMyGUIEngine.so.*
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
 %{_datadir}/MYGUI/Media/Common
@@ -148,9 +156,12 @@ done
 %{_datadir}/MYGUI/Media/Wrapper
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/MYGUI
+%{_libdir}/libEditorFramework.so
+%{_libdir}/libMyGUI.OpenGLPlatform.so
+%{_libdir}/libMyGUICommon.so
+%{_libdir}/libMyGUIEngine.so
+%{_libdir}/pkgconfig/MYGUI.pc
 
 %files devel-doc
 %doc Docs/html
@@ -165,7 +176,7 @@ done
 %{_datadir}/MYGUI/Tools/SkinEditor
 %{_datadir}/MYGUI/Media/Tools
 %{_datadir}/MYGUI/Media/Demos
-%{_iconsdir}/hicolor
+%{_iconsdir}/hicolor/*/apps/mygui_*.png
 %{_datadir}/applications/mygui-layouteditor.desktop
 %{_datadir}/applications/mygui-skineditor.desktop
 %{_datadir}/applications/mygui-fonteditor.desktop
@@ -174,6 +185,10 @@ done
 
 %changelog
 %autochangelog
+* Tue Jun 25 2025 Claire Robsahm <inquiries@chapien.net> - 3.4.3-4
+- Made libraries and icons explicit rather than wildcard.
+- Removed unnecessary dependencies and sorted them alphabetically.
+
 * Mon Jun 09 2025 Claire Robsahm <inquiries@chapien.net> - 3.4.3-1
 - Updated to 3.4.3. Build using OpenGL instead of OGRE.
 
