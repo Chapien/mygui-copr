@@ -22,10 +22,8 @@ BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  freetype-devel 
 BuildRequires:  gcc-c++
-BuildRequires:  glew
 BuildRequires:  glew-devel
 BuildRequires:  graphviz
-BuildRequires:  libGLEW
 BuildRequires:  libuuid-devel
 BuildRequires:  libX11-devel
 BuildRequires:  mesa-libGL-devel
@@ -34,7 +32,6 @@ BuildRequires:  ois-devel
 BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
-
 
 %description
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications.
@@ -147,8 +144,8 @@ done
 %files
 %license COPYING.MIT
 %doc README.md
-%{_libdir}/libMyGUICommon.so.*
-%{_libdir}/libMyGUIEngine.so.*
+%{_libdir}/libMyGUICommon.so.%{version}
+%{_libdir}/libMyGUIEngine.so.%{version}
 %dir %{_datadir}/MYGUI
 %dir %{_datadir}/MYGUI/Media
 %{_datadir}/MYGUI/Media/Common
